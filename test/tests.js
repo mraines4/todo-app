@@ -19,4 +19,20 @@ describe('todo model', () => {
         console.log(theTodo)
         expect(theTodo).to.be.an.instanceOf(ToDo);
     })
+
+    it('should be able to mark as pending', async() => {
+        const theTodo = await ToDo.getById(1);
+        theTodo.status = 'pending';
+        await theTodo.save();
+        const alsoTheTodo = await ToDo.getById(1);
+        expect(alsoTheTodo.status).to.be.equal('pending');
+    })
+
+    it('should be able to mark as done', async() => {
+        const theTodo = await ToDo.getById(1);
+        theTodo.status = 'done';
+        await theTodo.save();
+        const alsoTheTodo = await ToDo.getById(1);
+        expect(alsoTheTodo.status).to.be.equal('done');
+    })
 });
